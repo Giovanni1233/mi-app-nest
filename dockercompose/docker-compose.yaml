@@ -15,11 +15,12 @@ services:
       context: ../jenkins
       dockerfile: Dockerfile
     restart: always
+    user: root
     ports:
       - "8080:8080"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - //./pipe/docker_engine://./pipe/docker_engine  # Montar pipe Docker Windows
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - devnet
 
