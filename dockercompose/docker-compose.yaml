@@ -19,7 +19,7 @@ services:
       - "8080:8080"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - //./pipe/docker_engine://./pipe/docker_engine
+      - //./pipe/docker_engine://./pipe/docker_engine  # Montar pipe Docker Windows
     networks:
       - devnet
 
@@ -27,7 +27,7 @@ services:
     image: sonatype/nexus3
     container_name: nexus_repo
     volumes:
-    - nexus-data:/nexus-data
+      - nexus-data:/nexus-data
     ports:
       - "8081:8081"
       - "8082:8082"
@@ -68,12 +68,6 @@ networks:
 
 volumes:
   jenkins_home:
-  gitlab-config:
-  gitlab-logs:
-  gitlab-data:
   nexus-data:
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_logs:
   postgresql:
   postgresql_data:

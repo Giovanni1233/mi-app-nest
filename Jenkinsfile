@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'node-with-docker-cli:22'
+      image 'node-with-docker-cli:22' 
       args '-v //./pipe/docker_engine://./pipe/docker_engine -e DOCKER_HOST=npipe:////./pipe/docker_engine'
       reuseNode true
     }
