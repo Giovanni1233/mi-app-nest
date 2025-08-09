@@ -11,9 +11,7 @@ services:
       - devnet
 
   jenkins:
-    build:
-      context: ../jenkins
-      dockerfile: Dockerfile
+    image: gdiaz90/jenkins_server:gdd
     container_name: jenkins_server
     ports:
       - "8080:8080"
@@ -27,8 +25,12 @@ services:
   nexus:
     image: sonatype/nexus3
     container_name: nexus_repo
+    volumes:
+    - nexus-data:/nexus-data
     ports:
       - "8081:8081"
+      - "8082:8082"
+      - "8083:8083"
     networks:
       - devnet
 
@@ -40,7 +42,7 @@ services:
       - SONAR_JDBC_USERNAME=sonar
       - SONAR_JDBC_PASSWORD=sonar
     ports:
-      - "9000:9000"
+      - "8084:9000"
     depends_on:
       - db_sonar
     networks:
@@ -55,6 +57,9 @@ services:
       - POSTGRES_DB=sonar
     networks:
       - devnet
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
 
 networks:
   devnet:
@@ -62,3 +67,12 @@ networks:
 
 volumes:
   jenkins_home:
+  gitlab-config:
+  gitlab-logs:
+  gitlab-data:
+  nexus-data:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  postgresql:
+  postgresql_data:
