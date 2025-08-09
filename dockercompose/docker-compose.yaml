@@ -12,8 +12,8 @@ services:
 
   jenkins:
     build:
-      context: .
-      dockerfile: Dockerfile-jenkins
+      context: ../jenkins
+      dockerfile: Dockerfile
     restart: always
     ports:
       - "8080:8080"

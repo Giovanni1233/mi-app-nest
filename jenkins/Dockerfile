@@ -22,6 +22,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
   && rm -rf /var/lib/apt/lists/*
 
 # Dar permisos al usuario jenkins para usar Docker
-RUN groupadd -for docker && usermod -aG docker jenkins
+RUN groupadd -f docker && usermod -aG docker jenkins
 
 USER jenkins
