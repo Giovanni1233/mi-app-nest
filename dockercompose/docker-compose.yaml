@@ -11,11 +11,12 @@ services:
       - devnet
 
   jenkins:
-    image: gdiaz90/jenkins_server:gdd
-    container_name: jenkins_server
+    build:
+      context: .
+      dockerfile: Dockerfile-jenkins
+    restart: always
     ports:
       - "8080:8080"
-      - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
