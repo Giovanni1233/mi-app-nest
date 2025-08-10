@@ -14,12 +14,14 @@ services:
     build:
       context: ../jenkins
       dockerfile: Dockerfile
+    container_name: dockercompose-jenkins
     restart: always
     ports:
       - "8080:8080"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - //./pipe/docker_engine://./pipe/docker_engine  # Montar pipe Docker Windows
+      - /var/run/docker.sock:/var/run/docker.sock   # Montar el socket Docker Linux
+    privileged: true
     networks:
       - devnet
 
