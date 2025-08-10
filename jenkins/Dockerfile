@@ -1,7 +1,7 @@
 FROM jenkins/jenkins:lts
 
 ENV JENKINS_USER=gdiaz
-ENV JENKINS_PASS=admin123
+ENV JENKINS_PASS=Miyabi123N.
 
 ENV JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
