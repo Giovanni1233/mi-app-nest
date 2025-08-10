@@ -1,15 +1,19 @@
-# Etapa 1: build
-FROM node:22 AS builder
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-# Etapa 2: producción
+# Dockerfile para node con Docker CLI
 FROM node:22-alpine
+
+# Instalar Docker CLI
+RUN apk add --no-cache docker-cli
+
+# Establecer directorio de trabajo
 WORKDIR /usr/src/app
-COPY --from=builder /usr/src/app/dist ./dist
+
+# Copiar package.json para instalar dependencias (opcional)
 COPY package*.json ./
-RUN npm install --omit=dev
-CMD ["node", "dist/main.js"]
+
+RUN npm install
+
+# Copiar el resto de archivos (opcional, dependiendo de tu necesidad)
+COPY . .
+
+# Comando por defecto (puedes cambiarlo si quieres)
+CMD ["sh"]
