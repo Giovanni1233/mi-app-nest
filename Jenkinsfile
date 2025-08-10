@@ -22,16 +22,16 @@ pipeline {
         sh 'npm run build'
       }
     }
-    stage('Empaquetado y delivery') {
-      steps {
-        script {
-          docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-            sh 'docker build -t mi-app-nest:gdd .'
-            sh 'docker tag mi-app-nest:gdd gdiaz90/mi-app-nest:gdd'
-            sh 'docker push gdiaz90/mi-app-nest:gdd'
-          }
-        }
-      }
-    }
+    //stage('Empaquetado y delivery') {
+      //steps {
+        //script {
+          //docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+          //  sh 'docker build -t mi-app-nest:gdd .'
+          //  sh 'docker tag mi-app-nest:gdd gdiaz90/mi-app-nest:gdd'
+          //  sh 'docker push gdiaz90/mi-app-nest:gdd'
+          //}
+        //}
+      //}
+    //}
   }
 }
