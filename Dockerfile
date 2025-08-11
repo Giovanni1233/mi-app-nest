@@ -15,6 +15,5 @@ RUN npm install
 # Copiar el resto de archivos (opcional, dependiendo de tu necesidad)
 COPY . .
 
-EXPOSE 4000
 # Comando por defecto (puedes cambiarlo si quieres)
-CMD ["node", "dist/main.js","npm", "run", "start:prod","sh"]
+CMD ["dist/main.js","sh"]
