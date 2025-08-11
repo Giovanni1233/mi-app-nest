@@ -16,4 +16,4 @@ RUN npm install
 COPY . .
 
 # Comando por defecto (puedes cambiarlo si quieres)
-CMD ["sh"]
+CMD ["dist/main.js","sh"]
