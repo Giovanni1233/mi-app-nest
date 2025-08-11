@@ -30,6 +30,10 @@ pipeline {
             sh 'docker tag mi-app-nest:gdd gdiaz90/mi-app-nest:gdd'
             sh 'docker push gdiaz90/mi-app-nest:gdd'
           }
+          docker.withRegistry('http://localhost:8082', 'nexus-credentials') {
+            sh 'docker tag mi-app-nest:gdd localhost:8082/gdiaz90/mi-app-nest:gdd'
+            sh 'docker push localhost:8082/gdiaz90/mi-app-nest:gdd'
+          }
         }
       }
     }
