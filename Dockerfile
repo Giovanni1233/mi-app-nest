@@ -1,19 +1,17 @@
-# Dockerfile para node con Docker CLI
-FROM node:22-alpine
-
-# Instalar Docker CLI
-RUN apk add --no-cache docker-cli
-
-# Establecer directorio de trabajo
+# Etapa 1: Build
+FROM node:22 AS builder
 WORKDIR /usr/src/app
-
-# Copiar package.json para instalar dependencias (opcional)
 COPY package*.json ./
-
 RUN npm install
-
-# Copiar el resto de archivos (opcional, dependiendo de tu necesidad)
 COPY . .
+RUN npm run build
 
-# Comando por defecto (puedes cambiarlo si quieres)
-CMD ["sh"]
+# Etapa 2: Producción con Docker CLI
+FROM node:22-alpine
+RUN apk add --no-cache docker-cli
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app/dist ./dist
+COPY package*.json ./
+RUN npm install --omit=dev
+EXPOSE 4000
+CMD ["node", "dist/main.js"]
