@@ -1,23 +1,20 @@
-FROM node:22 AS build
-
-WORKDIR /usr/app/
-
-COPY . .
-
-RUN npm install
-RUN npm run test
-RUN npm run build
-
-FROM node:22-alpine AS production
+# Dockerfile para node con Docker CLI
+FROM node:22-alpine
 
 # Instalar Docker CLI
 RUN apk add --no-cache docker-cli
 
-WORKDIR /usr/app
+# Establecer directorio de trabajo
+WORKDIR /usr/src/app
 
-COPY --from=build /usr/app/dist ./dist
-COPY --from=build /usr/app/package*.json .
-RUN npm install --only=production
+# Copiar package.json para instalar dependencias (opcional)
+COPY package*.json ./
+
+RUN npm install
+
+# Copiar el resto de archivos (opcional, dependiendo de tu necesidad)
+COPY . .
 
 EXPOSE 4000
-CMD ["node", "dist/main.js"]
+# Comando por defecto (puedes cambiarlo si quieres)
+CMD ["node", "dist/main.js","npm", "run", "start:prod","sh"]
