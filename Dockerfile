@@ -7,13 +7,19 @@ RUN apk add --no-cache docker-cli
 # Establecer directorio de trabajo
 WORKDIR /usr/src/app
 
-# Copiar package.json para instalar dependencias (opcional)
+# Copiar package.json para instalar dependencias
 COPY package*.json ./
 
 RUN npm install
 
-# Copiar el resto de archivos (opcional, dependiendo de tu necesidad)
+# Copiar el resto de archivos
 COPY . .
 
-# Comando por defecto (puedes cambiarlo si quieres)
-CMD ["dist/main.js","sh"]
+# (Opcional) Compilar si es NestJS
+RUN npm run build
+
+# Exponer el puerto de la app
+EXPOSE 3000
+
+# Comando por defecto para iniciar la app
+CMD ["node", "dist/main.js"]
