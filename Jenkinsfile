@@ -22,6 +22,18 @@ pipeline {
         sh 'npm run build'
       }
     }
+    stage('Quality Assurance') {
+      agent {
+        docker {
+          image 'sonarsource/sonar-scanner-cli'
+        }
+      }
+      steps {
+        withSonarQubeEnv('SonarQube') {
+          sh 'sonar-scanner'
+        }
+      }
+    }
     stage('Empaquetado y delivery') {
       steps {
         script {
